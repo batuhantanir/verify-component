@@ -97,22 +97,28 @@ function EmailVerify() {
                         value={code[index]}
                         disabled={time == 0 ? true : false}
                         onChange={(e) => {
-                            const value = e.target.value;
-                            if (value.match(/^\d*$/)) {
-                                if (value.length > 1) {
-                                    return;
-                                }
+                            // console.log(e.target.value);
+                        }}
+                        onKeyDown={(e) => {
+                            console.log(e.key);
+                            if (e.key == "Backspace") {
                                 const newCode = [...code];
-                                newCode[index] = value;
+                                newCode[index] = "";
                                 setCode(newCode);
-                                if (value.length) {
-                                    if (index !== code.length - 1) {
-                                        inputsRef.current[index + 1].focus();
-                                    }
+                                if (index != 0) {
+                                    inputsRef.current[index - 1].focus();
                                 }
                             }
-
+                            if (e.key.match(/^\d*$/)) {
+                                const newCode = [...code];
+                                newCode[index] = e.key;
+                                setCode(newCode);
+                                if (index !== code.length - 1) {
+                                    inputsRef.current[index + 1].focus();
+                                }
+                            }
                         }}
+
                     />
                 ))}
             </div>
