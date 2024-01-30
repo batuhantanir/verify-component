@@ -105,7 +105,7 @@ function EmailVerify() {
                                 const newCode = [...code];
                                 newCode[index] = "";
                                 setCode(newCode);
-                                if (index != 0) {
+                                if (index != 0 && code[index] == "") {
                                     inputsRef.current[index - 1].focus();
                                 }
                             }
